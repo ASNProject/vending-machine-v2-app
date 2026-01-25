@@ -12,9 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import api from '../api/axios';
+import { HiSearch } from "react-icons/hi";
 
-export const login = (data) => api.post("/login", data);
-export const register = (data) => api.post("/register", data);
-export const logout = () => api.post("/logout");
-export const getProfile = () => api.get("/me");
+export default function DeviceSearch({ value, onChange }) {
+  return (
+    <div className="relative max-w-md mb-3">
+      <HiSearch className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+      <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Cari perangkat..."
+        className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring"
+      />
+    </div>
+  );
+}

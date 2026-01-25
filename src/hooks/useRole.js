@@ -1,0 +1,122 @@
+// Copyright 2026 ariefsetyonugroho
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     https://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import { useEffect, useState } from "react";
+import {
+  getRole,
+  postRole,
+  deleteRole,
+  updateRole,
+} from "../services/services";
+
+export default function useRole() {
+  const [roles, setRoles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [page, setPage] = useState(1);
+  const [meta, setMeta] = useState({
+    last_page: 1,
+    total: 0,
+  });
+
+  const PER_PAGE = 20;
+
+  const loadRoles = async () => {
+    setLoading(true);
+    try {
+      const res = await getRole();
+      const allData = res?.data?.data?.data || [];
+
+      const total = allData.length;
+      const lastPage = Math.ceil(total / PER_PAGE);
+
+      const start = (page - 1) * PER_PAGE;
+      const end = start + PER_PAGE;
+
+      setRoles(allData.slice(start, end));
+      setMeta({
+        last_page: lastPage,
+        total,
+      });
+    } catch (err) {
+      console.error(err);
+      alert("Gagal memuat data jabatan");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadRoles();
+  }, [page]);
+
+  const addRole = async (data) => {
+    try {
+      await postRole(data);
+      await loadRoles();
+      alert("Jabatan berhasil ditambahkan");
+    } catch (err) {
+      console.error(err);
+      alert(
+        err?.response?.data?.message ||
+        "Gagal menambahkan jabatan"
+      );
+      throw err;
+    }
+  };
+
+  const editRole = async (id, data) => {
+    try {
+      await updateRole(id, data);
+      await loadRoles();
+      alert("Jabatan berhasil diperbarui");
+    } catch (err) {
+      console.error(err);
+      alert(
+        err?.response?.data?.message ||
+        "Gagal memperbarui jabatan"
+      );
+      throw err;
+    }
+  };
+
+  const removeRole = async (id) => {
+    try {
+      await deleteRole(id);
+      await loadRoles();
+      alert("Jabatan berhasil dihapus");
+    } catch (err) {
+      console.error(err);
+      alert(
+        err?.response?.data?.message ||
+        "Gagal menghapus jabatan"
+      );
+      throw err;
+    }
+  };
+
+  return {
+    roles,
+    loading,
+    addRole,
+    editRole,
+    removeRole,
+    reload: loadRoles,
+    page,
+    meta,
+    goToPage: (p) => setPage(p),
+    nextPage: () => setPage((p) => p + 1),
+    prevPage: () => setPage((p) => p - 1),
+  };
+}

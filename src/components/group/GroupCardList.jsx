@@ -12,11 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export default function ReportsAnalytics() {
-  return (
-    <div>
-      <h2 className="text-2xl font-semibold">Analytics Report</h2>
-      <p className="mt-2 text-gray-600">This is the analytics report page.</p>
-    </div>
-  );
+import GroupCard from "./GroupCard";
+
+export default function GroupCardList({ groups, onCardClick }) {
+    return (
+        <div className="flex gap-4 overflow-x-auto pb-4">
+        {groups.map((group) => (
+            <GroupCard
+            key={group.id}
+            group={group}
+            onClick={onCardClick}
+            />
+        ))}
+        </div>
+    );
 }

@@ -23,7 +23,9 @@ import {
   HiLogout,
   HiChartBar,
   HiChevronDown,
+  HiOutlineBadgeCheck,
 } from "react-icons/hi";
+
 
 export default function Sidebar() {
   const { logout, user } = useAuth();
@@ -33,11 +35,14 @@ export default function Sidebar() {
   const menuItems = [
     { path: "home", label: "Beranda", icon: <HiHome className="w-5 h-5 mr-2" /> },
     {
-      label: "reports",
+      label: "Data",
       icon: <HiChartBar className="w-5 h-5 mr-2" />,
       subItems: [
-        { path: "reports/sales", label: "Sales" },
-        { path: "reports/analytics", label: "Analytics" },
+        { path: "data/customer", label: "Pengguna" },
+        { path: "data/device", label: "Perangkat" },
+        { path: "data/group", label: "Grup" },
+        { path: "data/product", label: "Produk" },
+        { path: "data/role", label: "Jabatan" },
       ],
     },
     { path: "settings", label: "Pengaturan", icon: <HiCog className="w-5 h-5 mr-2" /> },
@@ -51,7 +56,7 @@ export default function Sidebar() {
     <>
       {/* ================= MOBILE HEADER ================= */}
       <header className="md:hidden fixed top-0 left-0 w-full h-16 bg-white shadow z-40 flex items-center justify-between px-4">
-        <h1 className="text-lg font-bold text-gray-800">MyApp</h1>
+        <h1 className="text-lg font-bold text-gray-800">Vending Machine V2</h1>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="p-2 rounded-md bg-gray-100"
@@ -127,10 +132,16 @@ export default function Sidebar() {
 
       {/* ================= DESKTOP SIDEBAR ================= */}
       <aside className="hidden md:flex md:flex-col w-64 h-screen bg-white shadow-lg px-4 py-6">
-        <div className="mb-8">
-          <p className="text-lg font-semibold text-gray-800">
-            Hallo, <span className="text-blue-600">{user?.name}</span>
-          </p>
+        <div className="mb-8 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+            <HiOutlineBadgeCheck className="w-6 h-6 text-blue-600" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Hello,</p>
+            <p className="text-lg font-semibold text-gray-800">
+              {user?.name}
+            </p>
+          </div>
         </div>
 
         <nav className="flex-1 flex flex-col space-y-2">

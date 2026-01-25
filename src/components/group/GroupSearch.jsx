@@ -11,12 +11,18 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import { HiSearch } from "react-icons/hi";
 
-export default function ReportsSales() {
-  return (
-    <div>
-      <h2 className="text-2xl font-semibold">Sales Report</h2>
-      <p className="mt-2 text-gray-600">This is the sales report page.</p>
-    </div>
-  );
+export default function GroupSearch({ value, onChange }) {
+    return (
+        <div className="relative max-w-md mb-2">
+            <HiSearch className="absolute left-3 top-4 w-4 h-4 text-gray-400"></HiSearch>
+            <input 
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                placeholder="Cari nama group"
+                className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring focus:ring-blue-200"
+            />
+        </div>
+    )
 }

@@ -12,22 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import axios from 'axios';
+export const login = "/login";
+export const register = "/register";
+export const logout = "/logout";
+export const profile = "/me";
+export const customer = "/customer";
+export const deleteCustomer = "/customers"
+export const role = "/role";
+export const group ="/group";
+export const addGroup = (id) => `/group/${id}/product`;
+export const product = "/product";
+export const device = "/device";
+export const transaction = "/transaction";
+export const transactionv2 = "/transactions";
+export const configuration = "/configuration";
 
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    },
-});
-
-api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-})
-
-export default api;

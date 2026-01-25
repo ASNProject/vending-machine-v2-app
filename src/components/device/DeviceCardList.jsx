@@ -12,22 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import axios from 'axios';
+import DeviceCard from "./DeviceCard";
 
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    },
-});
-
-api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-})
-
-export default api;
+export default function DeviceCardList({ devices, onCardClick }) {
+  return (
+    <div className="flex gap-6 overflow-x-auto pb-4">
+      {devices.map((device) => (
+        <DeviceCard
+          key={device.id}
+          device={device}
+          onClick={onCardClick}
+        />
+      ))}
+    </div>
+  );
+}

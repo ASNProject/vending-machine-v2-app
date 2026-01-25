@@ -20,8 +20,11 @@ import PrivateRoute from "../auth/PrivateRoute";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import Settings from "../pages/Settings";
-import ReportsSales from "../pages/ReportSales";
-import ReportsAnalytics from "../pages/ReportAnalytics";
+import Device from "../pages/Data/Device";
+import Customer from "../pages/Data/Customer";
+import Group from "../pages/Data/Group";
+import Role from "../pages/Data/Role";
+import Product from "../pages/Data/Product";
 
 
 export default function AppRoutes() {
@@ -38,15 +41,53 @@ export default function AppRoutes() {
                     </PrivateRoute>
                 }
             >
-            <Route index element={<Home />} />      {/* default page */}
-            <Route path="home" element={<Home />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="settings" element={<Settings />} /> 
+            <Route index element={
+                <PrivateRoute>
+                    <Home />
+                </PrivateRoute>
+            } />      
+            <Route path="home" element={
+                <PrivateRoute>
+                    <Home />
+                </PrivateRoute>
+            } />
+            <Route path="profile" element={
+                <PrivateRoute>
+                    <Profile />
+                </PrivateRoute>
+            } />
+            <Route path="settings" element={
+                <PrivateRoute>
+                    <Settings />
+                </PrivateRoute>
+            } /> 
 
-            {/* Reports submenu */}
-            <Route path="reports/sales" element={<ReportsSales />} />
-            <Route path="reports/analytics" element={<ReportsAnalytics />} />
-                
+            {/* Data submenu */}
+            <Route path="data/device" element={
+                <PrivateRoute>
+                    <Device />
+                </PrivateRoute>
+            } />
+            <Route path="data/customer" element={
+                <PrivateRoute>
+                    <Customer />
+                </PrivateRoute>
+            } />
+            <Route path="data/group" element={
+                <PrivateRoute>
+                    <Group />
+                </PrivateRoute>
+            } />
+            <Route path="data/role" element={
+                <PrivateRoute>
+                    <Role />
+                </PrivateRoute>
+            } />
+            <Route path="data/product" element={
+                <PrivateRoute>
+                    <Product />
+                </PrivateRoute>
+            } />
             </Route>
         </Routes>
     )
