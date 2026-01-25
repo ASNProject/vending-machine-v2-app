@@ -25,23 +25,33 @@ export default function GroupTable({ groups, page, perPage, onEdit, onDelete, on
                         <th className="px-4 py-2 border">Produk</th>
                         <th className="px-4 py-2 border">Limit</th>
                         <th className="px-4 py-2 border">Device</th>
-                        <th className="px-4 py-2 border">Deksripsi</th>
                         <th className="pc-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {groups.map((group, index) => (
-                        <GroupRow
-                            key={group.id}
-                            group={group}
-                            index={index}
-                            page={page}
-                            perPage={perPage}
-                            onEdit={onEdit}
-                            onDelete={onDelete}
-                            onAddProduct={onAddProduct}
-                        ></GroupRow>
-                    ))}
+                    {groups.length === 0 ? (
+                        <tr>
+                            <td
+                                colSpan={6}
+                                className="px-4 py-8 text-center text-gray-500 italic"
+                            >
+                                Belum ada data group
+                            </td>
+                        </tr>
+                    ) : (
+                        groups.map((group, index) => (
+                            <GroupRow
+                                key={group.id}
+                                group={group}
+                                index={index}
+                                page={page}
+                                perPage={perPage}
+                                onEdit={onEdit}
+                                onDelete={onDelete}
+                                onAddProduct={onAddProduct}
+                            ></GroupRow>
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>

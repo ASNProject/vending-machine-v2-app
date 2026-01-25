@@ -26,17 +26,28 @@ export default function DeviceTable({ devices, page, perPage, onEdit, onDelete }
                     </tr>
                 </thead>
                 <tbody>
-                    {devices.map((device, index) => (
-                        <DeviceRow
-                            key={device.id}
-                            device={device}
-                            index={index}
-                            page={page}
-                            perPage={perPage}
-                            onEdit={onEdit}
-                            onDelete={onDelete}
-                        ></DeviceRow>
-                    ))}
+                    {devices.length === 0 ? (
+                        <tr>
+                            <td
+                                colSpan={6}
+                                className="px-4 py-8 text-center text-gray-500 italic"
+                            >
+                                Belum ada data perangkat
+                            </td>
+                        </tr>
+                    ) : (
+                        devices.map((device, index) => (
+                            <DeviceRow
+                                key={device.id}
+                                device={device}
+                                index={index}
+                                page={page}
+                                perPage={perPage}
+                                onEdit={onEdit}
+                                onDelete={onDelete}
+                            ></DeviceRow>
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>

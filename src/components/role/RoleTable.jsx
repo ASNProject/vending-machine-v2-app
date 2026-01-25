@@ -27,17 +27,28 @@ export default function RoleTable({ roles, page, perPage, onEdit, onDelete }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {roles.map((role, index) => (
-                        <RoleRow
-                            key={role.id}
-                            role={role}
-                            index={index}
-                            page={page}
-                            perPage={perPage}
-                            onEdit={onEdit}
-                            onDelete={onDelete}
-                        ></RoleRow>
-                    ))}
+                    {roles.length === 0 ? (
+                        <tr>
+                            <td
+                                colSpan={6}
+                                className="px-4 py-8 text-center text-gray-500 italic"
+                            >
+                                Belum ada data jabatan
+                            </td>
+                        </tr>
+                    ) : (
+                        roles.map((role, index) => (
+                            <RoleRow
+                                key={role.id}
+                                role={role}
+                                index={index}
+                                page={page}
+                                perPage={perPage}
+                                onEdit={onEdit}
+                                onDelete={onDelete}
+                            ></RoleRow>
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>

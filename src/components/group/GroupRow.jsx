@@ -20,7 +20,7 @@ export default function GroupRow({ group, index, page, perPage, onEdit, onDelete
     return (
         <tr className="hover:bg-gray-50">
             <td className="px-4 py-2 border text-center">{rowNumber}</td>
-            <td className="px-4 py-2 border">{group.group_name}</td>
+            <td className="px-4 py-2 border">{group.group_name || '-'}</td>
             <td className="px-4 py-2 border">
                 {Array.isArray(group.products) && group.products.length > 0 ? (
                     <ul className="list-disc list-inside space-y-1">
@@ -34,9 +34,8 @@ export default function GroupRow({ group, index, page, perPage, onEdit, onDelete
                     "-"
                 )}
             </td>
-            <td className="px-4 py-2 border">{group.limits}</td>
-            <td className="px-4 py-2 border">{group.device.device_name}</td>
-            <td className="px-4 py-2 border">{group.description}</td>
+            <td className="px-4 py-2 border">{group.limits || '-'}</td>
+            <td className="px-4 py-2 border">{group.device?.device_name || '-'}</td>
             <td className="px-4 py-2 border">
                 <div className="flex justify-center gap-2">
                     <button

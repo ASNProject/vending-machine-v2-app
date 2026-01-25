@@ -28,17 +28,28 @@ export default function ProductTable({ products, page, perPage, onEdit, onDelete
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product, index) => (
-                        <ProductRow
-                            key={product.id}
-                            product={product}
-                            index={index}
-                            page={page}
-                            perPage={perPage}
-                            onEdit={onEdit}
-                            onDelete={onDelete}
-                        ></ProductRow>
-                    ))}
+                    {products.length === 0 ? (
+                        <tr>
+                            <td
+                                colSpan={6}
+                                className="px-4 py-8 text-center text-gray-500 italic"
+                            >
+                                Belum ada data produk
+                            </td>
+                        </tr>
+                    ) : (
+                        products.map((product, index) => (
+                            <ProductRow
+                                key={product.id}
+                                product={product}
+                                index={index}
+                                page={page}
+                                perPage={perPage}
+                                onEdit={onEdit}
+                                onDelete={onDelete}
+                            ></ProductRow>
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>

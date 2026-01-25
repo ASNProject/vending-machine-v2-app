@@ -37,7 +37,7 @@ export default function DeviceFormModal({ onClose, onSubmit, initialData }) {
             onClose();
             window.location.reload();
         } catch (err) {
-            alert("Gagal menambahkan jabatan");
+            alert("Gagal menambahkan perangkat");
         } finally {
             setLoading(false);
         }
@@ -46,12 +46,12 @@ export default function DeviceFormModal({ onClose, onSubmit, initialData }) {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
             <div className="bg-white rounded-lg w-full max-w-md p-6">
-                <h3 className="text-lg font-semibold mb-4">Tambah Produk</h3>
+                <h3 className="text-lg font-semibold mb-4">Tambah Perangkat</h3>
 
                 <form onSubmit={handleSubmit} className="space-y-3">
                     <input
                         name="device_name"
-                        placeholder="Masukkan Produk"
+                        placeholder="Masukkan Perangkat"
                         value={form.device_name}
                         onChange={handleChange}
                         className="w-full border rounded px-3 py-2"
