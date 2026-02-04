@@ -14,7 +14,7 @@
  limitations under the License.
 -->
 
-# 📦 Vending Machine V2 API
+# 📦 Vending Machine V2 APP
 Dashboard untuk mengatur kebutuhan Vending Machine
 
 ## ✨ Features  
