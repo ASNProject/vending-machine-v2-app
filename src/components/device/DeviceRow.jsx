@@ -19,7 +19,7 @@ export default function DeviceRow({ device, index, page, perPage, onEdit, onDele
     
     return (
         <tr className="hover:bg-gray-50">
-            <td className="px-4 py-2 border text-center">{rowNumber}</td>
+            <td className="px-4 py-2 border text-center">{device.id}</td>
             <td className="px-4 py-2 border">{device.device_name}</td>
             <td className="px-4 py-2 border">
                 <div className="flex justify-center gap-2">

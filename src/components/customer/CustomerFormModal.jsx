@@ -27,6 +27,7 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
             initialData?.role?.id ??
             ""
         ),
+        limits: initialData?.limits || "",
     });
 
     const [loading, setLoading] = useState(false);
@@ -102,6 +103,14 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                             </option>
                         ))}
                     </select>
+                    <input
+                        name="limits"
+                        placeholder="Masukkan Limit"
+                        value={form.limits}
+                        onChange={handleChange}
+                        className="w-full border rounded px-3 py-2"
+                        required
+                    />
 
                     <div className="flex justify-end gap-2 pt-4">
                         <button

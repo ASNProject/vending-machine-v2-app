@@ -19,7 +19,7 @@ export default function ProductRow({ product, index, page, perPage, onEdit, onDe
     
     return (
         <tr className="hover:bg-gray-50">
-            <td className="px-4 py-2 border text-center">{rowNumber}</td>
+            <td className="px-4 py-2 border text-center">{product.id}</td>
             <td className="px-4 py-2 border">{product.product_name}</td>
             <td className="px-4 py-2 border">{product.keypad}</td>
             <td className="px-4 py-2 border">{product.description}</td>

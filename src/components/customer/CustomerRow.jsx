@@ -23,6 +23,7 @@ export default function CustomerRow({ customer, index, page, perPage, onEdit, on
             <td className="px-4 py-2 border">{customer.name || "-"}</td>
             <td className="px-4 py-2 border">{customer.phone_number || "-"}</td>
             <td className="px-4 py-2 border">{customer.role?.name || "-"}</td>
+            <td className="px-4 py-2 border">{customer.limits || "-"}</td>
             <td className="px-4 py-2 border">
                 <div className="flex justify-center gap-2">
                     <button

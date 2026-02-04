@@ -20,7 +20,7 @@ export default function DeviceTable({ devices, page, perPage, onEdit, onDelete }
             <table className="min-w-full border border-gray-200">
                 <thead className="bg-gray-100">
                     <tr>
-                        <th className="px-4 py-2 border">No</th>
+                        <th className="px-4 py-2 border">ID</th>
                         <th className="px-4 py-2 border">Perangkat</th>
                         <th className="pc-4 py-2 border">Aksi</th>
                     </tr>

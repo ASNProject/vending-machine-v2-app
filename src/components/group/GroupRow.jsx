@@ -19,7 +19,7 @@ export default function GroupRow({ group, index, page, perPage, onEdit, onDelete
     
     return (
         <tr className="hover:bg-gray-50">
-            <td className="px-4 py-2 border text-center">{rowNumber}</td>
+            <td className="px-4 py-2 border text-center">{group.id}</td>
             <td className="px-4 py-2 border">{group.group_name || '-'}</td>
             <td className="px-4 py-2 border">
                 {Array.isArray(group.products) && group.products.length > 0 ? (
