@@ -51,7 +51,6 @@ export default function useGroup() {
       });
     } catch (err) {
       console.error(err);
-      alert("Gagal memuat data group");
     } finally {
       setLoading(false);
     }
@@ -65,13 +64,8 @@ export default function useGroup() {
     try {
       await postGroup(data);
       await loadGroups();
-      alert("Group berhasil ditambahkan");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menambahkan group"
-      );
       throw err;
     }
   };
@@ -80,13 +74,8 @@ export default function useGroup() {
     try {
       await updateGroup(id, data);
       await loadGroups();
-      alert("Group berhasil diperbarui");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal memperbarui group"
-      );
       throw err;
     }
   };
@@ -95,13 +84,8 @@ export default function useGroup() {
     try {
       await deleteGroup(id);
       await loadGroups();
-      alert("Group berhasil dihapus");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menghapus group"
-      );
       throw err;
     }
   };

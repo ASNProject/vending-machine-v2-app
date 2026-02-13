@@ -50,7 +50,7 @@ export default function useCustomer() {
         total,
       });
     } catch (err) {
-      alert("Gagal memuat data pengguna");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -64,13 +64,8 @@ export default function useCustomer() {
     try {
       await postCustomer(data);
       await loadCustomers();
-      alert("Pengguna berhasil ditambahkan");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menambahkan pengguna"
-      );
       throw err;
     }
   };
@@ -79,13 +74,8 @@ export default function useCustomer() {
     try {
       await updateCustomer(uid, data);
       await loadCustomers();
-      alert("Data pengguna berhasil diperbarui");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal memperbarui data pengguna"
-      );
       throw err;
     }
   };
@@ -94,13 +84,8 @@ export default function useCustomer() {
     try {
       await deleteCustomer(id);
       await loadCustomers();
-      alert("Data pengguna berhasil dihapus");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menghapus data pengguna"
-      );
       throw err;
     }
   };

@@ -17,6 +17,8 @@ import RoleTable from "../../components/role/RoleTable";
 import useRole from "../../hooks/useRole";
 import RoleFormModal from "../../components/role/RoleFormModal";
 import Pagination from "../../components/common/Pagination";
+import ConfirmDialog from "../../components/common/ConfirmDialog";
+import toast from "react-hot-toast";
 
 export default function Role() {
   const {
@@ -30,6 +32,9 @@ export default function Role() {
   } = useRole();
   const [openModal, setOpenModal] = useState(false);
   const [editing, setEditing] = useState(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   return (
     <div className="p-4">
@@ -54,9 +59,8 @@ export default function Role() {
           setOpenModal(true);
         }} 
         onDelete={(id) => {
-          if (confirm("Yakin hapus data?")) {
-            removeRole(id);
-          }
+          setSelectedId(id);
+          setConfirmOpen(true);
         }} 
       ></RoleTable>
       <Pagination
@@ -69,14 +73,51 @@ export default function Role() {
         <RoleFormModal
           initialData={editing} 
           onClose={() => setOpenModal(false)}
-          onSubmit={(data) => {
+          onSubmit={async(data) => {
             editing
-              ? editRole(editing.id, data)
-              : addRole(data);
+              ? await editRole(editing.id, data)
+              : await addRole(data);
             setOpenModal(false);
           }}
         ></RoleFormModal>
       )}
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Hapus Jabatan"
+        message="Yakin ingin menghapus jabatan ini?"
+        confirmText="Hapus"
+        cancelText="Batal"
+        variant="danger"
+        loading={deleting}
+        onCancel={() => {
+          if (!deleting) {
+            setConfirmOpen(false);
+            setSelectedId(null);
+          }
+        }}
+        onConfirm={async () => {
+          if (!selectedId) return;
+
+          try {
+            setDeleting(true);
+
+            await removeRole(selectedId);
+
+            toast.success("Jabatan berhasil dihapus");
+
+            setConfirmOpen(false);
+            setSelectedId(null);
+
+          } catch (err) {
+            console.error("Gagal menghapus jabatan", err);
+            toast.error(
+              err?.response?.data?.message || "Gagal menghapus jabatan"
+            );
+          } finally {
+            setDeleting(false);
+          }
+        }}
+      />
     </div>
   );
 }

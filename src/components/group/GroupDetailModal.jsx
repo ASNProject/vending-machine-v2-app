@@ -39,8 +39,8 @@ export default function GroupDetailModal({ group, onClose }) {
           <h4 className="font-semibold mb-2">Produk</h4>
           {Array.isArray(group.products) && group.products.length > 0 ? (
             <ul className="list-disc list-inside space-y-1 text-sm">
-              {group.products.map((p) => (
-                <li key={p.product_id}>
+              {group.products.map((p, index) => (
+                <li key={`${p.product_id}-${index}`}>
                   {p.product_name}
                 </li>
               ))}

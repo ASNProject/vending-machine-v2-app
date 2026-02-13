@@ -12,21 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useState } from "react";
-import { postRole } from "../../services/services";
-import useRole from "../../hooks/useRole";
+import { use, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
 
 export default function RoleFormModal({ onClose, onSubmit, initialData }) {
 
     const [form, setForm] = useState({
-        name: initialData?.name || "",
-        description: initialData?.description || "",
+        name: "",
+        description: "",
     });
 
     const [loading, setLoading] = useState(false);
 
+    useEffect(() => {
+        setForm({
+            name: initialData?.name || "",
+            description: initialData?.description || "",
+        });
+    }, [initialData]);
+
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
     };
 
     const handleSubmit = async (e) => {
@@ -35,19 +45,23 @@ export default function RoleFormModal({ onClose, onSubmit, initialData }) {
 
         try {
             await onSubmit(form);
+            toast.success(
+                initialData
+                    ? "Jabatan berhasil diperbarui"
+                    : "Jabatan berhasil ditambahkan"
+            );
             onClose();
-            window.location.reload();
         } catch (err) {
-            alert("Gagal menambahkan jabatan");
+            toast.error(err?.response?.data?.message || "Terjadi kesalahan");
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
-            <div className="bg-white rounded-lg w-full max-w-md p-6">
-                <h3 className="text-lg font-semibold mb-4">Tambah Jabatan</h3>
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center" onClick={onClose}>
+            <div className="bg-white rounded-lg w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>
+                <h3 className="text-lg font-semibold mb-4">{initialData ? "Edit Jabatan" : "Tambah Jabatan"}</h3>
 
                 <form onSubmit={handleSubmit} className="space-y-3">
                     <input

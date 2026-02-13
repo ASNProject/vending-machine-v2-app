@@ -51,7 +51,6 @@ export default function useProduct() {
       });
     } catch (err) {
       console.error(err);
-      alert("Gagal memuat data produk");
     } finally {
       setLoading(false);
     }
@@ -65,13 +64,8 @@ export default function useProduct() {
     try {
       await postProduct(data);
       await loadProducts();
-      alert("Produk berhasil ditambahkan");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menambahkan produk"
-      );
       throw err;
     }
   };
@@ -80,13 +74,8 @@ export default function useProduct() {
     try {
       await updateProduct(id, data);
       await loadProducts();
-      alert("Produk berhasil diperbarui");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal memperbarui produk"
-      );
       throw err;
     }
   };
@@ -95,13 +84,8 @@ export default function useProduct() {
     try {
       await deleteProduct(id);
       await loadProducts();
-      alert("Produk berhasil dihapus");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menghapus produk"
-      );
       throw err;
     }
   };

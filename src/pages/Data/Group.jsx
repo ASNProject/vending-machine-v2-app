@@ -18,6 +18,8 @@ import useGroup from "../../hooks/useGroup";
 import GroupFormModal from "../../components/group/GroupFormModal";
 import Pagination from "../../components/common/Pagination";
 import AddGroupProductModal from "../../components/group/AddGroupProductModal";
+import ConfirmDialog from "../../components/common/ConfirmDialog";
+import toast from "react-hot-toast";
 
 export default function Group() {
   const {
@@ -34,6 +36,9 @@ export default function Group() {
   const [editing, setEditing] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [openAddProduct, setOpenAddProduct] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   const handleAddProduct = (group) => {
     setSelectedGroup(group);
@@ -63,9 +68,8 @@ export default function Group() {
           setOpenModal(true);
         }} 
         onDelete={(id) => {
-          if (confirm("Yakin hapus data?")) {
-            removeGroup(id);
-          }
+          setSelectedId(id);
+          setConfirmOpen(true);
         }} 
         onAddProduct={handleAddProduct}
       ></GroupTable>
@@ -79,10 +83,10 @@ export default function Group() {
         <GroupFormModal
           initialData={editing} 
           onClose={() => setOpenModal(false)}
-          onSubmit={(data) => {
+          onSubmit={async(data) => {
             editing
-              ? editGroup(editing.id, data)
-              : addGroup(data);
+              ? await editGroup(editing.id, data)
+              : await addGroup(data);
             setOpenModal(false);
           }}
         ></GroupFormModal>
@@ -95,6 +99,43 @@ export default function Group() {
           onSuccess={reload}
         />
       )}
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Hapus Grup"
+        message="Yakin ingin menghapus grup ini?"
+        confirmText="Hapus"
+        cancelText="Batal"
+        variant="danger"
+        loading={deleting}
+        onCancel={() => {
+          if (!deleting) {
+            setConfirmOpen(false);
+            setSelectedId(null);
+          }
+        }}
+        onConfirm={async () => {
+          if (!selectedId) return;
+
+          try {
+            setDeleting(true);
+
+            await removeGroup(selectedId);
+
+            toast.success("Grup berhasil dihapus");
+
+            setConfirmOpen(false);
+            setSelectedId(null);
+
+          } catch (err) {
+            console.error("Gagal menghapus grup", err);
+            toast.error(
+              err?.response?.data?.message || "Gagal menghapus grup"
+            );
+          } finally {
+            setDeleting(false);
+          }
+        }}
+      />
     </div>
   );
 }

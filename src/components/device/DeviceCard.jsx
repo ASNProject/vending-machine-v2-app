@@ -116,9 +116,9 @@ export default function DeviceCard({ device, onClick }) {
                 {Array.isArray(group.products) &&
                 group.products.length > 0 ? (
                   <>
-                    {group.products.slice(0, 4).map((p) => (
+                    {group.products.slice(0, 4).map((p, index) => (
                       <span
-                        key={p.product_id}
+                        key={`${p.product_id}-${index}`}
                         className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full"
                       >
                         {p.product_name}

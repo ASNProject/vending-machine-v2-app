@@ -66,10 +66,6 @@ export default function useTransaction() {
       setPage(pageNumber);
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal memuat data transaksi"
-      );
       setTransactions([]);
     } finally {
       setLoading(false);

@@ -68,9 +68,9 @@ export default function GroupCard({ group, onClick }) {
                 <div className="mt-3">
                     {Array.isArray(group.products) && group.products.length > 0 ? (
                     <div className="flex flex-wrap gap-1">
-                        {group.products.slice(0, 5).map((product) => (
+                        {group.products.slice(0, 5).map((product, index) => (
                         <span
-                            key={product.product_id}
+                            key={`${product.product_id}-${index}`}
                             className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full"
                         >
                             {product.product_name}

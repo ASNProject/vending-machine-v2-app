@@ -12,28 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import useRole from "../../hooks/useRole";
 
 export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
     const { roles, loading: roleLoading } = useRole();
 
     const [form, setForm] = useState({
-        uid: initialData?.uid || "",
-        name: initialData?.name || "",
-        phone_number: initialData?.phone_number || "",
-        role_id: String(
-            initialData?.role_id ??
-            initialData?.role?.id ??
-            ""
-        ),
-        limits: initialData?.limits || "",
+        uid: "",
+        name: "",
+        phone_number: "",
+        role_id: "",
+        limits: "",
     });
+
+    useEffect(() => {
+        setForm({
+            uid: initialData?.uid || "",
+            name: initialData?.name || "",
+            phone_number: initialData?.phone_number || "",
+            role_id: String(
+                initialData?.role_id ??
+                initialData?.role?.id ??
+                ""
+            ),
+            limits: initialData?.limits || "",
+        });
+    }, [initialData]);
 
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
     };
 
     const handleSubmit = async (e) => {
@@ -44,21 +58,27 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
             await onSubmit(
                 {
                     ...form,
-                    role_id: Number(form.role_id),
+                    role_id: form.role_id ? Number(form.role_id) : null,
+                    limits: form.limits ? Number(form.limits) : null,
                 }
+            );
+            toast.success(
+                initialData
+                    ? "Pengguna berhasil diperbarui"
+                    : "Pengguna berhasil ditambahkan"
             );
             onClose();
         } catch (err) {
-            alert("Gagal menambahkan pelanggan");
+            toast.error(err?.response?.data?.message || "Terjadi kesalahan");
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
-            <div className="bg-white rounded-lg w-full max-w-md p-6">
-                <h3 className="text-lg font-semibold mb-4">Tambah Pengguna</h3>
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center" onClick={onClose}>
+            <div className="bg-white rounded-lg w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>
+                <h3 className="text-lg font-semibold mb-4">{initialData ? "Edit Pengguna" : "Tambah Pengguna"}</h3>
 
                 <form onSubmit={handleSubmit} className="space-y-3">
                     <input
@@ -83,6 +103,7 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                         value={form.phone_number}
                         onChange={handleChange}
                         className="w-full border rounded px-3 py-2"
+                        type="tel"
                         required
                     />
                     <select
@@ -97,7 +118,7 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                             {roleLoading ? "Memuat Jabatan..." : "Pilih Jabatan"}
                         </option>
 
-                        {roles.map((role) => (
+                        {roles?.map((role) => (
                             <option value={String(role.id)} key={role.id}>
                                 {role.name}
                             </option>
@@ -106,6 +127,8 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                     <input
                         name="limits"
                         placeholder="Masukkan Limit"
+                        type="number"
+                        min="0"
                         value={form.limits}
                         onChange={handleChange}
                         className="w-full border rounded px-3 py-2"

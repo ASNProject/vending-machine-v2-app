@@ -17,6 +17,8 @@ import DeviceTable from "../../components/device/DeviceTable";
 import useDevice from "../../hooks/useDevice";
 import DeviceFormModal from "../../components/device/DeviceFormModal";
 import Pagination from "../../components/common/Pagination";
+import ConfirmDialog from "../../components/common/ConfirmDialog";
+import toast from "react-hot-toast";
 
 export default function Device() {
   const {
@@ -30,6 +32,9 @@ export default function Device() {
   } = useDevice();
   const [openModal, setOpenModal] = useState(false);
   const [editing, setEditing] = useState(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   return (
     <div className="p-4">
@@ -54,9 +59,8 @@ export default function Device() {
           setOpenModal(true);
         }} 
         onDelete={(id) => {
-          if (confirm("Yakin hapus data?")) {
-            removeDevice(id);
-          }
+          setSelectedId(id);
+          setConfirmOpen(true);
         }} 
       ></DeviceTable>
       <Pagination
@@ -69,14 +73,51 @@ export default function Device() {
         <DeviceFormModal
           initialData={editing} 
           onClose={() => setOpenModal(false)}
-          onSubmit={(data) => {
+          onSubmit={ async (data) => {
             editing
-              ? editDevice(editing.id, data)
-              : addDevice(data);
+              ? await editDevice(editing.id, data)
+              : await addDevice(data);
             setOpenModal(false);
           }}
         ></DeviceFormModal>
       )}
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Hapus Perangkat"
+        message="Yakin ingin menghapus perangkat ini?"
+        confirmText="Hapus"
+        cancelText="Batal"
+        variant="danger"
+        loading={deleting}
+        onCancel={() => {
+          if (!deleting) {
+            setConfirmOpen(false);
+            setSelectedId(null);
+          }
+        }}
+        onConfirm={async () => {
+          if (!selectedId) return;
+
+          try {
+            setDeleting(true);
+
+            await removeDevice(selectedId);
+
+            toast.success("Perangkat berhasil dihapus");
+
+            setConfirmOpen(false);
+            setSelectedId(null);
+
+          } catch (err) {
+            console.error("Gagal menghapus perangkat", err);
+            toast.error(
+              err?.response?.data?.message || "Gagal menghapus perangkat"
+            );
+          } finally {
+            setDeleting(false);
+          }
+        }}
+      />
     </div>
   );
 }

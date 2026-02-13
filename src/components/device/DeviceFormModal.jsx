@@ -12,20 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useState } from "react";
-import useDevice from "../../hooks/useDevice";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function DeviceFormModal({ onClose, onSubmit, initialData }) {
-    const { devices, loading: deviceLoading } = useDevice();
 
     const [form, setForm] = useState({
-        device_name: initialData?.device_name || "",
+        device_name: "",
     });
-
+        
     const [loading, setLoading] = useState(false);
 
+    useEffect(() => {
+        setForm({
+            device_name: initialData?.device_name || "",
+        });
+    }, [initialData]);
+
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
     };
 
     const handleSubmit = async (e) => {
@@ -34,19 +42,25 @@ export default function DeviceFormModal({ onClose, onSubmit, initialData }) {
 
         try {
             await onSubmit(form);
+            toast.success(
+                initialData
+                    ? "Perangkat berhasil diperbarui"
+                    : "Perangkat berhasil ditambahkan"
+            );
             onClose();
-            window.location.reload();
         } catch (err) {
-            alert("Gagal menambahkan perangkat");
+            toast.error(
+                err?.response?.data?.message || "Terjadi kesalahan"
+            );
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
-            <div className="bg-white rounded-lg w-full max-w-md p-6">
-                <h3 className="text-lg font-semibold mb-4">Tambah Perangkat</h3>
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center"  onClick={onClose}>
+            <div className="bg-white rounded-lg w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>
+                <h3 className="text-lg font-semibold mb-4">{initialData ? "Edit Perangkat" : "Tambah Perangkat"}</h3>
 
                 <form onSubmit={handleSubmit} className="space-y-3">
                     <input

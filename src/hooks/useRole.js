@@ -51,7 +51,6 @@ export default function useRole() {
       });
     } catch (err) {
       console.error(err);
-      alert("Gagal memuat data jabatan");
     } finally {
       setLoading(false);
     }
@@ -65,13 +64,8 @@ export default function useRole() {
     try {
       await postRole(data);
       await loadRoles();
-      alert("Jabatan berhasil ditambahkan");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menambahkan jabatan"
-      );
       throw err;
     }
   };
@@ -80,13 +74,8 @@ export default function useRole() {
     try {
       await updateRole(id, data);
       await loadRoles();
-      alert("Jabatan berhasil diperbarui");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal memperbarui jabatan"
-      );
       throw err;
     }
   };
@@ -95,13 +84,8 @@ export default function useRole() {
     try {
       await deleteRole(id);
       await loadRoles();
-      alert("Jabatan berhasil dihapus");
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menghapus jabatan"
-      );
       throw err;
     }
   };

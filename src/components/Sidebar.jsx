@@ -45,7 +45,7 @@ export default function Sidebar() {
         { path: "data/role", label: "Jabatan" },
       ],
     },
-    { path: "settings", label: "Pengaturan", icon: <HiCog className="w-5 h-5 mr-2" /> },
+    // { path: "settings", label: "Pengaturan", icon: <HiCog className="w-5 h-5 mr-2" /> },
   ];
 
   const toggleSubmenu = (label) => {

@@ -26,11 +26,6 @@ export default function useConfiguration() {
       setConfigs(res?.data?.data?.data || []);
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal memuat data konfigurasi"
-      );
-      setConfigs([]);
     } finally {
       setLoading(false);
     }
@@ -53,10 +48,6 @@ export default function useConfiguration() {
       });
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal mengubah status konfigurasi"
-      );
 
       setConfigs((prev) =>
         prev.map((c) =>

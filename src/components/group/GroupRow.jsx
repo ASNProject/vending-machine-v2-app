@@ -24,8 +24,8 @@ export default function GroupRow({ group, index, page, perPage, onEdit, onDelete
             <td className="px-4 py-2 border">
                 {Array.isArray(group.products) && group.products.length > 0 ? (
                     <ul className="list-disc list-inside space-y-1">
-                    {group.products.map((product) => (
-                        <li key={product.product_id}>
+                    {group.products.map((product, i) => (
+                        <li key={`${product.product_id}-${i}`}>
                         {product.product_name}
                         </li>
                     ))}

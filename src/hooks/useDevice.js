@@ -48,7 +48,6 @@ export default function useDevice() {
       setMeta({ last_page: lastPage, total });
     } catch (err) {
       console.error(err);
-      alert("Gagal memuat data device");
     } finally {
       setLoading(false);
     }
@@ -60,48 +59,30 @@ export default function useDevice() {
 
   const addDevice = async (data) => {
     try {
-      const res = await postDevice(data);
+      await postDevice(data);
       await loadDevices();
-      alert(res?.data?.message || "Device berhasil ditambahkan");
-      return res;
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menambahkan device"
-      );
       throw err;
     }
   };
 
   const editDevice = async (id, data) => {
     try {
-      const res = await updateDevice(id, data);
+      await updateDevice(id, data);
       await loadDevices();
-      alert(res?.data?.message || "Device berhasil diperbarui");
-      return res;
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal memperbarui device"
-      );
       throw err;
     }
   };
 
   const removeDevice = async (id) => {
     try {
-      const res = await deleteDevice(id);
+      await deleteDevice(id);
       await loadDevices();
-      alert(res?.data?.message || "Device berhasil dihapus");
-      return res;
     } catch (err) {
       console.error(err);
-      alert(
-        err?.response?.data?.message ||
-        "Gagal menghapus device"
-      );
       throw err;
     }
   };
