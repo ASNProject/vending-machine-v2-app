@@ -16,6 +16,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const { login } = useAuth();
@@ -28,7 +29,7 @@ export default function Login() {
       await login(form);
       navigate("/dashboard");
     } catch {
-      alert("Login failed! Username or password is incorrect.");
+      toast.error("Login gagal! Nama pengguna atau kata sandi salah.");
     }
   };
 

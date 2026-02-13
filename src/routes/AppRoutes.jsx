@@ -25,6 +25,7 @@ import Customer from "../pages/Data/Customer";
 import Group from "../pages/Data/Group";
 import Role from "../pages/Data/Role";
 import Product from "../pages/Data/Product";
+import Report from "../pages/Report";
 
 
 export default function AppRoutes() {
@@ -60,7 +61,12 @@ export default function AppRoutes() {
                 <PrivateRoute>
                     <Settings />
                 </PrivateRoute>
-            } /> 
+            } />
+            <Route path="report" element={
+                <PrivateRoute>
+                    <Report />
+                </PrivateRoute>
+            }/>
 
             {/* Data submenu */}
             <Route path="data/device" element={

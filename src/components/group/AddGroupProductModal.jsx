@@ -15,6 +15,7 @@
 import { useState } from "react";
 import useProduct from "../../hooks/useProduct";
 import { addGroup } from "../../services/services";
+import toast from "react-hot-toast";
 
 export default function AddGroupProductModal({ group, onClose, onSuccess }) {
   const { products, loading } = useProduct();
@@ -32,7 +33,7 @@ export default function AddGroupProductModal({ group, onClose, onSuccess }) {
         onSuccess();
         onClose();
     } catch (err) {
-        alert("Gagal menambahkan produk ke grup");
+        toast.error("Gagal menambahkan produk ke grup");
     } finally {
         setSubmitting(false);
     }

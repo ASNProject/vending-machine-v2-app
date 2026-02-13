@@ -26,4 +26,7 @@ export const device = "/device";
 export const transaction = "/transaction";
 export const transactionv2 = "/transactions";
 export const configuration = "/configuration";
-
+export const reportTransactionsExport = "/reports/transactions/export";
+export const reportProductsExport = "/reports/products/export";
+export const reportDevicesExport = "/reports/devices/export";
+export const truncateTransactions = "/reports/transactions/truncate";

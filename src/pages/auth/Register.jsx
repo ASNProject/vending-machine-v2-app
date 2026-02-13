@@ -15,6 +15,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Register() {
   const { register } = useAuth();
@@ -33,7 +34,7 @@ export default function Register() {
       await register(form);
       navigate("/dashboard");
     } catch {
-      alert("Register failed! Please try again.");
+      toast.error("Register gagal! Silakan coba lagi.");
     }
   };
 

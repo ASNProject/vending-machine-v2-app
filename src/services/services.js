@@ -93,3 +93,24 @@ export const getConfiguration = (page = 1, perPage = 20) => api.get(endpoint.con
     }
 });
 export const postConfiguration = (data) => api.get(endpoint.configuration, data);  
+
+export const exportTransactions = (params) =>
+  api.get(endpoint.reportTransactionsExport, {
+    params,
+    responseType: "blob",
+  });
+
+export const exportProducts = (params) =>
+  api.get(endpoint.reportProductsExport, {
+    params,
+    responseType: "blob",
+  });
+
+export const exportDevices = (params) =>
+  api.get(endpoint.reportDevicesExport, {
+    params,
+    responseType: "blob",
+  });
+
+export const deleteAllTransactions = () =>
+  api.delete(endpoint.truncateTransactions);
