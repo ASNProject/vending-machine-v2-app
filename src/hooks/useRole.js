@@ -36,18 +36,13 @@ export default function useRole() {
     setLoading(true);
     try {
       const res = await getRole();
-      const allData = res?.data?.data?.data || [];
 
-      const total = allData.length;
-      const lastPage = Math.ceil(total / PER_PAGE);
+      const response = res?.data?.data;
 
-      const start = (page - 1) * PER_PAGE;
-      const end = start + PER_PAGE;
-
-      setRoles(allData.slice(start, end));
+      setRoles(response.data);
       setMeta({
-        last_page: lastPage,
-        total,
+        last_page: response.last_page,
+        total: response.total,
       });
     } catch (err) {
       console.error(err);

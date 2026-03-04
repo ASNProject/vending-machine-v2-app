@@ -36,16 +36,13 @@ export default function useDevice() {
     setLoading(true);
     try {
       const res = await getDevice();
-      const allData = res?.data?.data?.data || [];
+      const response = res?.data?.data;
 
-      const total = allData.length;
-      const lastPage = Math.ceil(total / PER_PAGE);
-
-      const start = (page - 1) * PER_PAGE;
-      const end = start + PER_PAGE;
-
-      setDevices(allData.slice(start, end));
-      setMeta({ last_page: lastPage, total });
+      setDevices(response.data);
+      setMeta({
+        last_page: response.last_page,
+        total: response.total,
+      });
     } catch (err) {
       console.error(err);
     } finally {

@@ -35,20 +35,17 @@ export default function useGroup() {
   const loadGroups = async () => {
     setLoading(true);
     try {
-      const res = await getGroup();
-      const allData = res?.data?.data?.data || [];
+      const res = await getGroup(page);
 
-      const total = allData.length;
-      const lastPage = Math.ceil(total / PER_PAGE);
+      const response = res?.data?.data;
 
-      const start = (page - 1) * PER_PAGE;
-      const end = start + PER_PAGE;
+      setGroups(response.data);
 
-      setGroups(allData.slice(start, end));
       setMeta({
-        last_page: lastPage,
-        total,
+        last_page: response.last_page,
+        total: response.total,
       });
+
     } catch (err) {
       console.error(err);
     } finally {

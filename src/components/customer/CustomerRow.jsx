@@ -67,33 +67,34 @@ export default function CustomerRow({ customer, index, page, perPage, onEdit, on
         </tr>
 
         {showDetail && (
-            <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
-                    <h2 className="text-lg font-semibold mb-4">
-                        Limit Group Device
-                    </h2>
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+            <div className="bg-white p-4 rounded-lg w-96 shadow-lg">
+            <h2 className="text-md font-semibold mb-3">
+                Limit Group Device
+            </h2>
 
-                    <div className="space-y-2 text-sm">
-                        {limitData.map((item, i) => (
-                            <div
-                                key={i}
-                                className="px-3 py-2 bg-gray-100 rounded"
-                            >
-                                Device {item.device_id} - Group {item.group_id} : {item.limit}
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="mt-4 text-right">
-                        <button
-                            onClick={() => setShowDetail(false)}
-                            className="px-3 py-1 bg-gray-500 text-white rounded"
-                        >
-                            Tutup
-                        </button>
-                    </div>
+            {/* Scrollable Area */}
+            <div className="max-h-96 overflow-y-auto space-y-2 text-sm pr-1">
+                {limitData.map((item, i) => (
+                <div
+                    key={i}
+                    className="px-3 py-2 bg-gray-100 rounded"
+                >
+                    Device: {item.device_id} | Group: {item.group_id} | Sisa Limit: {item.limit}
                 </div>
+                ))}
             </div>
+
+            <div className="mt-3 text-right">
+                <button
+                onClick={() => setShowDetail(false)}
+                className="px-3 py-1 bg-gray-500 text-white rounded text-sm"
+                >
+                Tutup
+                </button>
+            </div>
+            </div>
+        </div>
         )}
     </>
     )
