@@ -49,7 +49,8 @@ export default function Group() {
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold mb-4">Daftar Grup</h2>
-        <button
+        {/* TODO Uncomment for use add group */}
+        {/* <button
           onClick={() => {
             setEditing(null);
             setOpenModal(true)
@@ -57,7 +58,7 @@ export default function Group() {
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
         >
           Tambah Grup
-        </button>
+        </button> */}
       </div>
       <GroupTable 
         groups={groups}

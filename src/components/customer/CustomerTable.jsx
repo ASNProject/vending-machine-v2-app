@@ -26,6 +26,7 @@ export default function CustomerTable({ customers, page, perPage, onEdit, onDele
                         <th className="px-4 py-2 border">Nomor Telepon</th>
                         <th className="px-4 py-2 border">Jabatan</th>
                         <th className="px-4 py-2 border">Limit</th>
+                        <th className="px-4 py-2 border">Limit Group Device</th>
                         <th className="pc-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>
