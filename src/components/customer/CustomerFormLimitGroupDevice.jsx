@@ -123,6 +123,8 @@ export default function LimitGroupDeviceModal({
             onChange={(e) => setLimit(e.target.value)}
           />
 
+          <p className="text-xs italic mb-4 font-thin">*Jika ingin memperbarui limit masukkan ID perangkat dan ID Grup yang sudah ditambahkan!</p>
+
         </div>
 
         <div className="flex justify-end gap-2 mt-5">

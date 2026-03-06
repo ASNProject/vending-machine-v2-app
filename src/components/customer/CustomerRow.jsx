@@ -35,7 +35,7 @@ export default function CustomerRow({ customer, index, page, perPage, onEdit, on
             <td className="px-4 py-2 border text-center">
                 <div className="flex items-center justify-center gap-2">
                     <span className="text-sm text-gray-600">
-                        {limitData.length} groups
+                        {limitData.length} grup
                     </span>
 
                     {limitData.length > 0 && (

@@ -24,7 +24,7 @@ export default function GroupTable({ groups, page, perPage, onEdit, onDelete, on
                         <th className="px-4 py-2 border">Grup</th>
                         <th className="px-4 py-2 border">Produk</th>
                         <th className="px-4 py-2 border">Limit</th>
-                        <th className="px-4 py-2 border">Device</th>
+                        <th className="px-4 py-2 border">Perangkat</th>
                         <th className="pc-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>

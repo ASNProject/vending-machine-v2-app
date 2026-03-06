@@ -20,8 +20,8 @@ export default function TransactionTable({ transactions, page, perPage }) {
           <tr>
             <th className="px-4 py-2 border">No</th>
             <th className="px-4 py-2 border">UID</th>
-            <th className="px-4 py-2 border">Device</th>
-            <th className="px-4 py-2 border">Group</th>
+            <th className="px-4 py-2 border">Perangkat</th>
+            <th className="px-4 py-2 border">Grup</th>
             <th className="px-4 py-2 border">Produk</th>
             <th className="px-4 py-2 border">Tanggal</th>
           </tr>

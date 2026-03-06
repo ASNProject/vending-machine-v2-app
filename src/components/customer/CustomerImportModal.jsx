@@ -39,7 +39,7 @@ export default function CustomerImportModal({ onClose, reload }) {
 
       await importCustomerExcel(formData);
 
-      toast.success("Import customer berhasil");
+      toast.success("Unggah pengguna berhasil");
 
       setFile(null);
       await reload();
@@ -50,7 +50,7 @@ export default function CustomerImportModal({ onClose, reload }) {
       console.error(err);
 
       toast.error(
-        err?.response?.data?.message || "Import gagal"
+        err?.response?.data?.message || "Unggah gagal"
       );
 
     } finally {
@@ -71,7 +71,7 @@ export default function CustomerImportModal({ onClose, reload }) {
       const link = document.createElement("a");
 
       link.href = url;
-      link.setAttribute("download", "customer_template.xlsx");
+      link.setAttribute("download", "pengguna_template.xlsx");
 
       document.body.appendChild(link);
       link.click();
@@ -93,7 +93,7 @@ export default function CustomerImportModal({ onClose, reload }) {
       <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
 
         <h2 className="text-lg font-semibold mb-4">
-          Import Customer Excel
+          Unggah pengguna Excel
         </h2>
 
         <input
@@ -115,7 +115,7 @@ export default function CustomerImportModal({ onClose, reload }) {
             onClick={handleDownloadTemplate}
             className="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm"
           >
-            Download Template
+            Unduh Template
           </button>
 
           <button
@@ -123,7 +123,7 @@ export default function CustomerImportModal({ onClose, reload }) {
             disabled={loading}
             className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm disabled:opacity-50"
           >
-            {loading ? "Uploading..." : "Upload"}
+            {loading ? "Uploading..." : "Unggah"}
           </button>
 
         </div>

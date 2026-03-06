@@ -53,7 +53,7 @@ export default function GroupCard({ group, onClick }) {
                     <div className="flex items-center gap-2">
                         <HiChip className="w-4 h-4 text-purple-500"></HiChip>
                         <span>
-                            Device ID: <strong>{group.device_id}</strong>
+                            ID Perangkat: <strong>{group.device_id}</strong>
                         </span>
                     </div>
 

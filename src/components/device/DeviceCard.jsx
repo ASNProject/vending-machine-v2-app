@@ -79,7 +79,7 @@ export default function DeviceCard({ device, onClick }) {
         <div className="flex items-center gap-2">
           <HiCollection className="w-4 h-4 text-blue-500" />
           <span>
-            Group: <strong>{groups.length}</strong>
+            Grup: <strong>{groups.length}</strong>
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -140,13 +140,13 @@ export default function DeviceCard({ device, onClick }) {
           ))
         ) : (
           <p className="text-sm text-gray-400 italic">
-            Belum ada group terhubung
+            Belum ada grup terhubung
           </p>
         )}
 
         {groups.length > 1 && (
           <p className="text-xs text-gray-400 italic">
-            +{groups.length - 1} group lainnya
+            +{groups.length - 1} grup lainnya
           </p>
         )}
       </div>
