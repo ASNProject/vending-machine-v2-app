@@ -129,11 +129,10 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                         placeholder="Masukkan Limit"
                         type="number"
                         min="0"
-                        // TODO Uncomment for use initial limits
-                        // value={form.limits}
+                        value={form.limits}
                         onChange={handleChange}
                         className="w-full border rounded px-3 py-2"
-                        // required
+                        required
                     />
 
                     <div className="flex justify-end gap-2 pt-4">

@@ -18,6 +18,8 @@ import {
   postCustomer,
   updateCustomer,
   deleteCustomer,
+  addCustomerLimitGroupDevice,
+  updateCustomerLimitGroupDevice,
 } from "../services/services";
 
 export default function useCustomer() {
@@ -86,12 +88,34 @@ export default function useCustomer() {
     }
   };
 
+  const addLimitGroupDevice = async (uid, data) => {
+    try {
+      await addCustomerLimitGroupDevice(uid, data);
+      await loadCustomers();
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+  const updateLimitGroupDevice = async (uid, data) => {
+    try {
+      await updateCustomerLimitGroupDevice(uid, data);
+      await loadCustomers();
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
   return {
     customers,
     loading,
     addCustomer,
     editCustomer,
     removeCustomer,
+    addLimitGroupDevice,
+    updateLimitGroupDevice,
     reload: loadCustomers,
     page,
     meta,

@@ -14,7 +14,7 @@
 
 import CustomerRow from "./CustomerRow";
 
-export default function CustomerTable({ customers, page, perPage, onEdit, onDelete }) {
+export default function CustomerTable({ customers, page, perPage, onEdit, onDelete, reload }) {
     return (
         <div className="overflow-x-auto bg-white rounded-lg shadow">
             <table className="min-w-full border border-gray-200">
@@ -50,6 +50,7 @@ export default function CustomerTable({ customers, page, perPage, onEdit, onDele
                                 perPage={perPage}
                                 onEdit={onEdit}
                                 onDelete={onDelete}
+                                reload={reload}
                             ></CustomerRow>
                         ))
                     )}

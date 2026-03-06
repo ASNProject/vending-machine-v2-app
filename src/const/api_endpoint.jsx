@@ -32,3 +32,5 @@ export const reportDevicesExport = "/reports/devices/export";
 export const truncateTransactions = "/reports/transactions/truncate";
 export const customerImport = "/customer/import";
 export const customerTemplate = "/customer/template";
+export const addLimitGroupDevice = (uid) => `/customer/${uid}/limit-group-device`;
+export const updateLimitGroupDevice = (uid) => `/customer/${uid}/limit-group-device/update`;

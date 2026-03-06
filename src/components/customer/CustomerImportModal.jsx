@@ -19,7 +19,7 @@ import {
   downloadCustomerTemplate
 } from "../../services/services";
 
-export default function CustomerImportModal({ onClose }) {
+export default function CustomerImportModal({ onClose, reload }) {
 
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -42,6 +42,7 @@ export default function CustomerImportModal({ onClose }) {
       toast.success("Import customer berhasil");
 
       setFile(null);
+      await reload();
       onClose();
 
     } catch (err) {

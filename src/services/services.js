@@ -33,6 +33,9 @@ export const updateCustomer = (uid, data) =>
 export const deleteCustomer = (id) =>
   api.delete(`${endpoint.customer}/${id}`);
 
+export const addCustomerLimitGroupDevice = (uid, data) => api.post(endpoint.addLimitGroupDevice(uid), data);
+export const updateCustomerLimitGroupDevice = (uid, data) => api.post(endpoint.updateLimitGroupDevice(uid), data);
+
 export const importCustomerExcel = (formData) =>
   api.post(endpoint.customerImport, formData, {
     headers: {

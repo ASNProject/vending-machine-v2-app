@@ -30,6 +30,7 @@ export default function Customer() {
     page,
     meta,
     goToPage,
+    reload
   } = useCustomer();
   const [openModal, setOpenModal] = useState(false);
   const [editing, setEditing] = useState(null);
@@ -73,6 +74,7 @@ export default function Customer() {
           setSelectedId(id);
           setConfirmOpen(true);
         }} 
+        reload={reload}
       ></CustomerTable>
       <Pagination
         page={page}
@@ -97,6 +99,7 @@ export default function Customer() {
       {openImport && (
         <CustomerImportModal
           onClose={() => setOpenImport(false)}
+          reload={reload}
         />
       )}
 

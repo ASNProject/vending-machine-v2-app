@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 import { useState } from "react";
-import { HiPencilAlt, HiTrash, HiEye } from "react-icons/hi";
+import { HiPencilAlt, HiTrash, HiEye, HiPlus } from "react-icons/hi";
+import LimitGroupDeviceModal from "./CustomerFormLimitGroupDevice";
+import { createPortal } from "react-dom";
 
-export default function CustomerRow({ customer, index, page, perPage, onEdit, onDelete }) {
+export default function CustomerRow({ customer, index, page, perPage, onEdit, onDelete, reload }) {
     const rowNumber = (page - 1) * perPage + index + 1;
     const [showDetail, setShowDetail] = useState(false);
+    const [showLimitModal, setShowLimitModal] = useState(false);
 
     const limitData = customer.limit_group_device || [];
     
@@ -49,6 +52,13 @@ export default function CustomerRow({ customer, index, page, perPage, onEdit, on
             <td className="px-4 py-2 border">
                 <div className="flex justify-center gap-2">
                     <button
+                        onClick={() => setShowLimitModal(true)}
+                        className="flex items-center gap-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm"
+                        >
+                        <HiPlus className="w-4 h-4" />
+                        Limit Grup
+                    </button>
+                    <button
                         onClick={() => onEdit(customer)}
                         className="flex items-center gap-1 px-2 py-1 bg-yellow-400 hover:bg-yellow-500 text-white rounded text-sm"
                     >
@@ -66,7 +76,7 @@ export default function CustomerRow({ customer, index, page, perPage, onEdit, on
             </td>
         </tr>
 
-        {showDetail && (
+        {showDetail && createPortal(
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
             <div className="bg-white p-4 rounded-lg w-96 shadow-lg">
             <h2 className="text-md font-semibold mb-3">
@@ -80,7 +90,7 @@ export default function CustomerRow({ customer, index, page, perPage, onEdit, on
                     key={i}
                     className="px-3 py-2 bg-gray-100 rounded"
                 >
-                    Device: {item.device_id} | Group: {item.group_id} | Sisa Limit: {item.limit}
+                    Perangkat: {item.device_id} | Grup: {item.group_id} | Sisa Limit: {item.limit}
                 </div>
                 ))}
             </div>
@@ -94,7 +104,14 @@ export default function CustomerRow({ customer, index, page, perPage, onEdit, on
                 </button>
             </div>
             </div>
-        </div>
+        </div>, document.body
+        )}
+        {showLimitModal && (
+            <LimitGroupDeviceModal
+                customer={customer}
+                reload={reload}
+                onClose={() => setShowLimitModal(false)}
+            />
         )}
     </>
     )
