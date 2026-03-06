@@ -18,6 +18,7 @@ import useCustomer from "../../hooks/useCustomer";
 import CustomerFormModal from "../../components/customer/CustomerFormModal";
 import Pagination from "../../components/common/Pagination";
 import ConfirmDialog from "../../components/common/ConfirmDialog";
+import CustomerImportModal from "../../components/customer/CustomerImportModal";
 import toast from "react-hot-toast";
 
 export default function Customer() {
@@ -35,20 +36,30 @@ export default function Customer() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [openImport, setOpenImport] = useState(false);
 
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold mb-4">Daftar Pengguna</h2>
-        <button
-          onClick={() => {
-            setEditing(null);
-            setOpenModal(true)
-          }}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
-        >
-          Tambah Pengguna
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setOpenImport(true)}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold"
+          >
+            Import Excel
+          </button>
+
+          <button
+            onClick={() => {
+              setEditing(null);
+              setOpenModal(true);
+            }}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
+          >
+            Tambah Pengguna
+          </button>
+        </div>
       </div>
       <CustomerTable 
         customers={customers}
@@ -82,6 +93,11 @@ export default function Customer() {
             setOpenModal(false);
           }}
         ></CustomerFormModal>
+      )}
+      {openImport && (
+        <CustomerImportModal
+          onClose={() => setOpenImport(false)}
+        />
       )}
 
       <ConfirmDialog

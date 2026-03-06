@@ -33,6 +33,18 @@ export const updateCustomer = (uid, data) =>
 export const deleteCustomer = (id) =>
   api.delete(`${endpoint.customer}/${id}`);
 
+export const importCustomerExcel = (formData) =>
+  api.post(endpoint.customerImport, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+export const downloadCustomerTemplate = () =>
+  api.get(endpoint.customerTemplate, {
+    responseType: "blob",
+  });
+
 export const getRole = (page = 1, perPage = 20) => api.get(endpoint.role, {
     params: {
         page,

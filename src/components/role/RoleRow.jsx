@@ -19,7 +19,7 @@ export default function RoleRow({ role, index, page, perPage, onEdit, onDelete }
     
     return (
         <tr className="hover:bg-gray-50">
-            <td className="px-4 py-2 border text-center">{rowNumber}</td>
+            <td className="px-4 py-2 border text-center">{role.id}</td>
             <td className="px-4 py-2 border">{role.name}</td>
             <td className="px-4 py-2 border">{role.description}</td>
             <td className="px-4 py-2 border">
