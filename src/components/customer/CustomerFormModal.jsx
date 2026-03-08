@@ -16,6 +16,14 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useRole from "../../hooks/useRole";
 
+const defaultGroups = [
+  { group_id: 1, limit: "" },
+  { group_id: 2, limit: "" },
+  { group_id: 3, limit: "" },
+  { group_id: 4, limit: "" },
+  { group_id: 5, limit: "" },
+];
+
 export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
     const { roles, loading: roleLoading } = useRole();
 
@@ -25,14 +33,16 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
         phone_number: "",
         role_id: "",
         limits: "",
-        limit_group_device: [
-            { group_id: 1, limit: "" },
-            { group_id: 2, limit: "" },
-            { group_id: 3, limit: "" },
-            { group_id: 4, limit: "" },
-            { group_id: 5, limit: "" }
-        ]
+        limit_group_device: defaultGroups
     });
+
+    const [loading, setLoading] = useState(false);
+
+    const mergeGroups = (data = []) =>
+        defaultGroups.map((g) => {
+        const found = data.find((x) => x.group_id === g.group_id);
+        return found ? { ...found } : g;
+        });
 
     useEffect(() => {
         setForm({
@@ -45,17 +55,9 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                 ""
             ),
             limits: initialData?.limits || "",
-            limit_group_device: initialData?.limit_group_device || [
-                { group_id: 1, limit: "" },
-                { group_id: 2, limit: "" },
-                { group_id: 3, limit: "" },
-                { group_id: 4, limit: "" },
-                { group_id: 5, limit: "" }
-            ]
+            limit_group_device: mergeGroups(initialData?.limit_group_device),
         });
     }, [initialData]);
-
-    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setForm(prev => ({
@@ -81,14 +83,15 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
 
         try {
             await onSubmit(
-                {
-                    ...form,
-                    role_id: form.role_id ? Number(form.role_id) : null,
-                    limits: form.limits ? Number(form.limits) : null,
-                    limit_group_device: form.limit_group_device
-
-                }
-            );
+            {
+                ...form,
+                role_id: form.role_id ? Number(form.role_id) : null,
+                limits: form.limits ? Number(form.limits) : null,
+                limit_group_device: form.limit_group_device.map((g) => ({
+                    group_id: g.group_id,
+                    limit: g.limit === "" ? 0 : Number(g.limit),
+                })),                
+            });
             toast.success(
                 initialData
                     ? "Pengguna berhasil diperbarui"
@@ -165,24 +168,28 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                         <p className="text-sm font-semibold">Limit Per Group</p>
 
                         {form.limit_group_device.map((group, index) => (
-                            <div key={group.group_id} className="space-y-1">
-                                <label className="text-xs text-gray-600">
-                                    Limit Grup {group.group_id}
-                                </label>
+                        <div key={group.group_id} className="space-y-1">
+                            <label className="text-xs text-gray-600">
+                            Limit Grup {group.group_id}
+                            </label>
 
-                                <input
-                                    // type="number"
-                                    // min="0"
-                                    value={group.limit}
-                                    onChange={(e) =>
-                                        handleGroupLimitChange(index, e.target.value)
-                                    }
-                                    placeholder={`Masukkan limit group ${group.group_id}`}
-                                    title={`Limit transaksi untuk group ${group.group_id}`}
-                                    className="w-full border rounded px-3 py-2"
-                                    required
-                                />
-                            </div>
+                        <input
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            value={group.limit}
+                            onChange={(e) => {
+                                const value = e.target.value;
+
+                                if (/^\d*$/.test(value)) {
+                                handleGroupLimitChange(index, value);
+                                }
+                            }}
+                            placeholder={`Masukkan limit group ${group.group_id}`}
+                            className="w-full border rounded px-3 py-2"
+                            required
+                        />
+                        </div>
                         ))}
                     </div>
 
