@@ -27,6 +27,7 @@ export default function Group() {
     addGroup,
     editGroup,
     removeGroup,
+    removeProduct,
     reload,
     page,
     meta,
@@ -39,10 +40,17 @@ export default function Group() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [confirmRemoveProduct, setConfirmRemoveProduct] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleAddProduct = (group) => {
     setSelectedGroup(group);
     setOpenAddProduct(true);
+  };
+
+  const handleRemoveProduct = (groupId, index) => {
+    setSelectedProduct({ groupId, index });
+    setConfirmRemoveProduct(true);
   };
 
   return (
@@ -73,6 +81,7 @@ export default function Group() {
           setConfirmOpen(true);
         }} 
         onAddProduct={handleAddProduct}
+        onRemoveProduct={handleRemoveProduct}
       ></GroupTable>
       <Pagination
         page={page}
@@ -134,6 +143,37 @@ export default function Group() {
             );
           } finally {
             setDeleting(false);
+          }
+        }}
+      />
+      <ConfirmDialog
+        open={confirmRemoveProduct}
+        title="Hapus Produk"
+        message="Yakin ingin menghapus produk dari grup ini?"
+        confirmText="Hapus"
+        cancelText="Batal"
+        variant="danger"
+        onCancel={() => {
+          setConfirmRemoveProduct(false);
+          setSelectedProduct(null);
+        }}
+        onConfirm={async () => {
+          if (!selectedProduct) return;
+
+          try {
+            await removeProduct(
+              selectedProduct.groupId,
+              selectedProduct.index
+            );
+
+            toast.success("Produk berhasil dihapus");
+
+            setConfirmRemoveProduct(false);
+            setSelectedProduct(null);
+
+          } catch (err) {
+            console.error(err);
+            toast.error("Gagal menghapus produk");
           }
         }}
       />

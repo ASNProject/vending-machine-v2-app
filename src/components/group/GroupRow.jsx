@@ -14,7 +14,7 @@
 
 import { HiPencilAlt, HiTrash } from "react-icons/hi";
 
-export default function GroupRow({ group, index, page, perPage, onEdit, onDelete, onAddProduct }) {
+export default function GroupRow({ group, index, page, perPage, onEdit, onDelete, onAddProduct, onRemoveProduct }) {
     const rowNumber = (page - 1) * perPage + index + 1;
     
     return (
@@ -25,9 +25,19 @@ export default function GroupRow({ group, index, page, perPage, onEdit, onDelete
                 {Array.isArray(group.products) && group.products.length > 0 ? (
                     <ul className="list-disc list-inside space-y-1">
                     {group.products.map((product, i) => (
-                        <li key={`${product.product_id}-${i}`}>
-                        {product.product_name}
-                        </li>
+                    <li
+                    key={`${product.product_id}-${i}`}
+                    className="flex items-center justify-between gap-2"
+                    >
+                    <span>{product.product_name}</span>
+
+                    <button
+                        onClick={() => onRemoveProduct(group.id, i)}
+                        className="text-red-500 hover:text-red-700"
+                        >
+                        <HiTrash className="w-4 h-4" />
+                    </button>
+                    </li>
                     ))}
                     </ul>
                 ) : (

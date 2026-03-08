@@ -14,7 +14,7 @@
 
 import GroupRow from "./GroupRow";
 
-export default function GroupTable({ groups, page, perPage, onEdit, onDelete, onAddProduct }) {
+export default function GroupTable({ groups, page, perPage, onEdit, onDelete, onAddProduct, onRemoveProduct }) {
     return (
         <div className="overflow-x-auto bg-white rounded-lg shadow">
             <table className="min-w-full border border-gray-200">
@@ -25,14 +25,14 @@ export default function GroupTable({ groups, page, perPage, onEdit, onDelete, on
                         <th className="px-4 py-2 border">Produk</th>
                         <th className="px-4 py-2 border">Limit</th>
                         {/* <th className="px-4 py-2 border">Perangkat</th> */}
-                        <th className="pc-4 py-2 border">Aksi</th>
+                        <th className="px-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     {groups.length === 0 ? (
                         <tr>
                             <td
-                                colSpan={6}
+                                colSpan={5}
                                 className="px-4 py-8 text-center text-gray-500 italic"
                             >
                                 Belum ada data group
@@ -49,6 +49,7 @@ export default function GroupTable({ groups, page, perPage, onEdit, onDelete, on
                                 onEdit={onEdit}
                                 onDelete={onDelete}
                                 onAddProduct={onAddProduct}
+                                onRemoveProduct={onRemoveProduct}
                             ></GroupRow>
                         ))
                     )}

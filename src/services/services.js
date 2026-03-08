@@ -78,6 +78,12 @@ export const getProduct = (page = 1, perPage = 20) => api.get(endpoint.product, 
         per_page: perPage,
     }
 });
+
+export const removeProductFromGroup = (groupId, index) =>
+  api.post(`${endpoint.group}/${groupId}/product/remove`, {
+    index: index
+  });
+
 export const postProduct = (data) => api.post(endpoint.product, data);
 export const updateProduct = (id, data) =>
   api.put(`${endpoint.product}/${id}`, data);

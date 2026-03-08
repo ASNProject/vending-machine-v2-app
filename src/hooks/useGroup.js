@@ -18,6 +18,7 @@ import {
   postGroup,
   deleteGroup,
   updateGroup,
+  removeProductFromGroup,
 } from "../services/services";
 
 export default function useGroup() {
@@ -87,12 +88,23 @@ export default function useGroup() {
     }
   };
 
+  const removeProduct = async (groupId, index) => {
+    try {
+      await removeProductFromGroup(groupId, index);
+      await loadGroups();
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
   return {
     groups,
     loading,
     addGroup,
     editGroup,
     removeGroup,
+    removeProduct,
     reload: loadGroups,
     page,
     meta,
