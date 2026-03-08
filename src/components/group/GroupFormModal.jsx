@@ -22,7 +22,7 @@ export default function GroupFormModal({ onClose, onSubmit, initialData }) {
     const [form, setForm] = useState({
         group_name: "",
         limits: "",
-        device_id: "",
+        // device_id: "",
     });
 
     const [loading, setLoading] = useState(false);
@@ -31,11 +31,11 @@ export default function GroupFormModal({ onClose, onSubmit, initialData }) {
         setForm({
             group_name: initialData?.group_name || "",
             limits: initialData?.limits || "",
-            device_id: String(
-                initialData?.device_id ??
-                initialData?.device?.id ??
-                ""
-            ),
+            // device_id: String(
+            //     initialData?.device_id ??
+            //     initialData?.device?.id ??
+            //     ""
+            // ),
         });
     }, [initialData]);
 
@@ -87,7 +87,7 @@ export default function GroupFormModal({ onClose, onSubmit, initialData }) {
                         className="w-full border rounded px-3 py-2"
                         required
                     />
-                    <select
+                    {/* <select
                         name="device_id"
                         value={form.device_id}
                         onChange={handleChange}
@@ -105,7 +105,7 @@ export default function GroupFormModal({ onClose, onSubmit, initialData }) {
                         </option>
                         ))}
 
-                    </select>
+                    </select> */}
 
                     <div className="flex justify-end gap-2 pt-4">
                         <button

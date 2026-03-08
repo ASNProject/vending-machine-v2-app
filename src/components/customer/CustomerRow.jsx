@@ -51,13 +51,13 @@ export default function CustomerRow({ customer, index, page, perPage, onEdit, on
             </td>
             <td className="px-4 py-2 border">
                 <div className="flex justify-center gap-2">
-                    <button
+                    {/* <button
                         onClick={() => setShowLimitModal(true)}
                         className="flex items-center gap-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm"
                         >
                         <HiPlus className="w-4 h-4" />
                         Limit Grup
-                    </button>
+                    </button> */}
                     <button
                         onClick={() => onEdit(customer)}
                         className="flex items-center gap-1 px-2 py-1 bg-yellow-400 hover:bg-yellow-500 text-white rounded text-sm"
@@ -90,7 +90,9 @@ export default function CustomerRow({ customer, index, page, perPage, onEdit, on
                     key={i}
                     className="px-3 py-2 bg-gray-100 rounded"
                 >
-                    Perangkat: {item.device_id} | Grup: {item.group_id} | Sisa Limit: {item.limit}
+                    {/* Perangkat: {item.device_id} | Grup: {item.group_id} | Sisa Limit: {item.limit} */}
+                    Grup ID: {item.group_id} | Sisa Limit: {item.limit}
+
                 </div>
                 ))}
             </div>

@@ -35,7 +35,7 @@ export default function GroupRow({ group, index, page, perPage, onEdit, onDelete
                 )}
             </td>
             <td className="px-4 py-2 border">{group.limits || '-'}</td>
-            <td className="px-4 py-2 border">{group.device?.device_name || '-'}</td>
+            {/* <td className="px-4 py-2 border">{group.device?.device_name || '-'}</td> */}
             <td className="px-4 py-2 border">
                 <div className="flex justify-center gap-2">
                     <button

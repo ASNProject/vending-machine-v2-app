@@ -25,6 +25,13 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
         phone_number: "",
         role_id: "",
         limits: "",
+        limit_group_device: [
+            { group_id: 1, limit: "" },
+            { group_id: 2, limit: "" },
+            { group_id: 3, limit: "" },
+            { group_id: 4, limit: "" },
+            { group_id: 5, limit: "" }
+        ]
     });
 
     useEffect(() => {
@@ -38,6 +45,13 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                 ""
             ),
             limits: initialData?.limits || "",
+            limit_group_device: initialData?.limit_group_device || [
+                { group_id: 1, limit: "" },
+                { group_id: 2, limit: "" },
+                { group_id: 3, limit: "" },
+                { group_id: 4, limit: "" },
+                { group_id: 5, limit: "" }
+            ]
         });
     }, [initialData]);
 
@@ -47,6 +61,17 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
         setForm(prev => ({
             ...prev,
             [e.target.name]: e.target.value
+        }));
+    };
+
+    const handleGroupLimitChange = (index, value) => {
+        setForm(prev => ({
+            ...prev,
+            limit_group_device: prev.limit_group_device.map((item, i) =>
+                i === index
+                    ? { ...item, limit: Number(value) }
+                    : item
+            )
         }));
     };
 
@@ -60,6 +85,8 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                     ...form,
                     role_id: form.role_id ? Number(form.role_id) : null,
                     limits: form.limits ? Number(form.limits) : null,
+                    limit_group_device: form.limit_group_device
+
                 }
             );
             toast.success(
@@ -77,7 +104,7 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center" onClick={onClose}>
-            <div className="bg-white rounded-lg w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-white rounded-lg w-full max-w-md p-6 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                 <h3 className="text-lg font-semibold mb-4">{initialData ? "Edit Pengguna" : "Tambah Pengguna"}</h3>
 
                 <form onSubmit={handleSubmit} className="space-y-3">
@@ -134,6 +161,30 @@ export default function CustomerFormModal({ onClose, onSubmit, initialData }) {
                         className="w-full border rounded px-3 py-2"
                         required
                     />
+                    <div className="space-y-2 pt-2">
+                        <p className="text-sm font-semibold">Limit Per Group</p>
+
+                        {form.limit_group_device.map((group, index) => (
+                            <div key={group.group_id} className="space-y-1">
+                                <label className="text-xs text-gray-600">
+                                    Limit Grup {group.group_id}
+                                </label>
+
+                                <input
+                                    // type="number"
+                                    // min="0"
+                                    value={group.limit}
+                                    onChange={(e) =>
+                                        handleGroupLimitChange(index, e.target.value)
+                                    }
+                                    placeholder={`Masukkan limit group ${group.group_id}`}
+                                    title={`Limit transaksi untuk group ${group.group_id}`}
+                                    className="w-full border rounded px-3 py-2"
+                                    required
+                                />
+                            </div>
+                        ))}
+                    </div>
 
                     <div className="flex justify-end gap-2 pt-4">
                         <button
