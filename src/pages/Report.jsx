@@ -12,20 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { useEffect, useState } from "react";
+import axios from "axios";
 import ExportCard from "../components/report/ExportCard";
 import useReportExport from "../hooks/useReportExport";
+import useRole from "../hooks/useRole";
 
 export default function Reports() {
   const {
     start,
     end,
+    roleId,
     setStart,
     setEnd,
+    setRoleId,
     exportReport,
-    loading,
+    loadingType,
     loadingDelete,
     truncateTransactions,
   } = useReportExport();
+
+  const {roles, loading: roleLoading} = useRole();
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-8">
@@ -52,7 +59,7 @@ export default function Reports() {
               type="date"
               value={start}
               onChange={(e) => setStart(e.target.value)}
-              className="w-full mt-1 border rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 border rounded-xl px-4 py-2"
             />
           </div>
 
@@ -64,19 +71,45 @@ export default function Reports() {
               type="date"
               value={end}
               onChange={(e) => setEnd(e.target.value)}
-              className="w-full mt-1 border rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-1 border rounded-xl px-4 py-2"
             />
+          </div>
+
+          {/* ROLE */}
+          <div>
+            <label className="text-sm text-gray-600">
+              Jabatan
+            </label>
+            <select
+              value={roleId}
+              onChange={(e) => setRoleId(e.target.value)}
+              className="w-full mt-1 border rounded-xl px-4 py-2"
+              disabled={roleLoading}
+            >
+              <option value="">
+                {roleLoading
+                  ? "Memuat Jabatan..."
+                  : "Semua Jabatan"}
+              </option>
+
+              {roles.map((role) => (
+                <option key={role.id} value={String(role.id)}>
+                  {role.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* EXPORT BUTTON */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <ExportCard
           title="🧾 Report Transaksi"
           description="Export semua transaksi"
           color="bg-blue-600 hover:bg-blue-700"
           onClick={() => exportReport("transactions")}
-          loading={loading === "transactions"}
+          loading={loadingType === "transactions"}
         />
 
         <ExportCard
@@ -84,7 +117,7 @@ export default function Reports() {
           description="Export statistik produk"
           color="bg-green-600 hover:bg-green-700"
           onClick={() => exportReport("products")}
-          loading={loading === "products"}
+          loading={loadingType === "products"}
         />
 
         <ExportCard
@@ -92,7 +125,15 @@ export default function Reports() {
           description="Export penggunaan device"
           color="bg-purple-600 hover:bg-purple-700"
           onClick={() => exportReport("devices")}
-          loading={loading === "devices"}
+          loading={loadingType === "devices"}
+        />
+
+        <ExportCard
+          title="👤 Role Usage"
+          description="Export statistik jabatan"
+          color="bg-orange-600 hover:bg-orange-700"
+          onClick={() => exportReport("roles")}
+          loading={loadingType === "roles"}
         />
       </div>
 

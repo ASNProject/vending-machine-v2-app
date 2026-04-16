@@ -29,6 +29,7 @@ export const configuration = "/configuration";
 export const reportTransactionsExport = "/reports/transactions/export";
 export const reportProductsExport = "/reports/products/export";
 export const reportDevicesExport = "/reports/devices/export";
+export const reportRolesExport = "/reports/roles/export";
 export const truncateTransactions = "/reports/transactions/truncate";
 export const customerImport = "/customer/import";
 export const customerTemplate = "/customer/template";

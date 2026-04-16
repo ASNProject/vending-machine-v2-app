@@ -30,12 +30,12 @@ export default function useDevice() {
     total: 0,
   });
 
-  const PER_PAGE = 20;
+  const PER_PAGE = 10;
 
   const loadDevices = async () => {
     setLoading(true);
     try {
-      const res = await getDevice();
+      const res = await getDevice(page, PER_PAGE);
       const response = res?.data?.data;
 
       setDevices(response.data);
@@ -94,7 +94,7 @@ export default function useDevice() {
     page,
     meta,
     goToPage: setPage,
-    nextPage: () => setPage((p) => p + 1),
-    prevPage: () => setPage((p) => p - 1),
+    nextPage: () => setPage((p) => Math.min(p + 1, meta.last_page)),
+    prevPage: () => setPage((p) => Math.max(p - 1, 1)), 
   };
 }

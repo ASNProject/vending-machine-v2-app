@@ -71,7 +71,7 @@ export default function Group() {
       <GroupTable 
         groups={groups}
         page={page}
-        perPage={20}
+        perPage={10}
         onEdit={(data) => {
           setEditing(data);
           setOpenModal(true);

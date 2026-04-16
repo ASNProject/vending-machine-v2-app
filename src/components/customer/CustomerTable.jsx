@@ -27,14 +27,14 @@ export default function CustomerTable({ customers, page, perPage, onEdit, onDele
                         <th className="px-4 py-2 border">Jabatan</th>
                         <th className="px-4 py-2 border">Limit</th>
                         <th className="px-4 py-2 border">Limit Grup Pengguna</th>
-                        <th className="pc-4 py-2 border">Aksi</th>
+                        <th className="px-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     {customers.length === 0 ? (
                         <tr>
                             <td
-                                colSpan={6}
+                                colSpan={8}
                                 className="px-4 py-8 text-center text-gray-500 italic"
                             >
                                 Belum ada data pengguna

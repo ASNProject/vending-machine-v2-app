@@ -19,7 +19,7 @@ export const login = (data) => api.post(endpoint.login, data);
 export const register = (data) => api.post(endpoint.register, data);
 export const logout = () => api.post(endpoint.logout);
 export const getProfile = () => api.get(endpoint.profile);
-export const getCustomer = (page = 1, perPage = 20) => api.get(endpoint.customer, {
+export const getCustomer = (page = 1, perPage = 10) => api.get(endpoint.customer, {
     params: {
         page,
         per_page: perPage,
@@ -48,7 +48,7 @@ export const downloadCustomerTemplate = () =>
     responseType: "blob",
   });
 
-export const getRole = (page = 1, perPage = 20) => api.get(endpoint.role, {
+export const getRole = (page = 1, perPage = 10) => api.get(endpoint.role, {
     params: {
         page,
         per_page: perPage,
@@ -60,7 +60,7 @@ export const updateRole= (id, data) =>
 export const deleteRole = (id) =>
   api.delete(`${endpoint.role}/${id}`);
 
-export const getGroup = (page = 1, perPage = 20) => api.get(endpoint.group, {
+export const getGroup = (page = 1, perPage = 10) => api.get(endpoint.group, {
     params: {
         page,
         per_page: perPage,
@@ -72,7 +72,7 @@ export const updateGroup = (id, data) =>
 export const deleteGroup = (id) =>
   api.delete(`${endpoint.group}/${id}`);
 export const addGroup = (groupId, data) => api.post(endpoint.addGroup(groupId), data);
-export const getProduct = (page = 1, perPage = 20) => api.get(endpoint.product, {
+export const getProduct = (page = 1, perPage = 10) => api.get(endpoint.product, {
     params: {
         page,
         per_page: perPage,
@@ -89,7 +89,7 @@ export const updateProduct = (id, data) =>
   api.put(`${endpoint.product}/${id}`, data);
 export const deleteProduct = (id) =>
   api.delete(`${endpoint.product}/${id}`);
-export const getDevice = (page = 1, perPage = 20) => api.get(endpoint.device, {
+export const getDevice = (page = 1, perPage = 10) => api.get(endpoint.device, {
     params: {
         page,
         per_page: perPage,
@@ -100,14 +100,14 @@ export const updateDevice = (id, data) =>
   api.put(`${endpoint.device}/${id}`, data);
 export const deleteDevice = (id) =>
   api.delete(`${endpoint.device}/${id}`);
-export const getTransaction = (page = 1, perPage = 20) => api.get(endpoint.transactionv2, {
+export const getTransaction = (page = 1, perPage = 10) => api.get(endpoint.transactionv2, {
     params: {
         page,
         per_page: perPage,
     }
 });
 export const postTransaction = (data) => api.post(endpoint.transaction,data);
-export const getConfiguration = (page = 1, perPage = 20) => api.get(endpoint.configuration, {
+export const getConfiguration = (page = 1, perPage = 10) => api.get(endpoint.configuration, {
     params: {
         page,
         per_page: perPage,
@@ -129,6 +129,12 @@ export const exportProducts = (params) =>
 
 export const exportDevices = (params) =>
   api.get(endpoint.reportDevicesExport, {
+    params,
+    responseType: "blob",
+  });
+
+export const exportRoles = (params) =>
+  api.get(endpoint.reportRolesExport, {
     params,
     responseType: "blob",
   });

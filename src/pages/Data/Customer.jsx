@@ -65,7 +65,7 @@ export default function Customer() {
       <CustomerTable 
         customers={customers}
         page={page}
-        perPage={20}
+        perPage={10}
         onEdit={(data) => {
           setEditing(data);
           setOpenModal(true);

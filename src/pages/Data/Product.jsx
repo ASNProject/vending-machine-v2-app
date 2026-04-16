@@ -53,7 +53,7 @@ export default function Product() {
       <ProductTable 
         products={products}
         page={page}
-        perPage={20}
+        perPage={10}
         onEdit={(data) => {
           setEditing(data);
           setOpenModal(true);

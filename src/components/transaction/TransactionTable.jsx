@@ -19,7 +19,7 @@ export default function TransactionTable({ transactions, page, perPage }) {
         <thead className="bg-gray-100">
           <tr>
             <th className="px-4 py-2 border">No</th>
-            <th className="px-4 py-2 border">UID</th>
+            <th className="px-4 py-2 border">Nama Pengguna</th>
             <th className="px-4 py-2 border">Perangkat</th>
             <th className="px-4 py-2 border">Grup</th>
             <th className="px-4 py-2 border">Produk</th>
@@ -42,7 +42,7 @@ export default function TransactionTable({ transactions, page, perPage }) {
                 <td className="px-4 py-2 border text-center">
                   {(page - 1) * perPage + index + 1}
                 </td>
-                <td className="px-4 py-2 border text-center">{trx.uid}</td>
+                <td className="px-4 py-2 border text-center">{trx.customer?.name}</td>
                 <td className="px-4 py-2 border text-center">{trx.device_name}</td>
                 <td className="px-4 py-2 border text-center">
                   {trx.group?.group_name || "-"}

@@ -19,7 +19,7 @@ export default function GroupRow({ group, index, page, perPage, onEdit, onDelete
     
     return (
         <tr className="hover:bg-gray-50">
-            <td className="px-4 py-2 border text-center">{group.id}</td>
+            <td className="px-4 py-2 border text-center">{rowNumber}</td>
             <td className="px-4 py-2 border">{group.group_name || '-'}</td>
             <td className="px-4 py-2 border">
                 {Array.isArray(group.products) && group.products.length > 0 ? (
@@ -61,13 +61,13 @@ export default function GroupRow({ group, index, page, perPage, onEdit, onDelete
                     <HiPencilAlt className="w-4 h-4" />
                     Edit
                     </button>
-                    <button
+                    {/* <button
                         onClick={() => onDelete(group.id)}
                         className="flex items-center gap-1 px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-sm"
                     >
                     <HiTrash className="w-4 h-4" />
                     Hapus
-                    </button>
+                    </button> */}
                 </div>
             </td>
         </tr>

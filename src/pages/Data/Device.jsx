@@ -54,7 +54,7 @@ export default function Device() {
       <DeviceTable 
         devices={devices}
         page={page}
-        perPage={20}
+        perPage={10}
         onEdit={(data) => {
           setEditing(data);
           setOpenModal(true);
